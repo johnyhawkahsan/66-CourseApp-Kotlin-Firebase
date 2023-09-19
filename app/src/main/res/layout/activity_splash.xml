@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Connectify"
+            android:text="Firebase Login"
             android:textColor="@color/black"
             android:textAlignment="center"
             android:textFontWeight="500"
@@ -49,7 +49,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="From Nouman"
+            android:text="By Ahsan Taqveem"
             android:textFontWeight="400"
             android:textColor="@color/black"
             android:textAlignment="center"
