@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.a66_courseapp_kotlin_firebase.FirstFragment"
+        android:name="com.example.a66_courseapp_kotlin_firebase.FragmentFirst"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.a66_courseapp_kotlin_firebase.SecondFragment"
+        android:name="com.example.a66_courseapp_kotlin_firebase.FragmentSecond"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 

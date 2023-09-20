@@ -1,35 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondFragment">
+    android:layout_gravity="fill_vertical"
+    android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
-
-        <Button
-            android:id="@+id/button_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/previous"
-            app:layout_constraintBottom_toTopOf="@id/textview_second"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/activityBackground"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+        tools:context=".FragmentSecond">
 
         <TextView
-            android:id="@+id/textview_second"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/lorem_ipsum"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_second" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="SignUp To"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15ssp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/courseApp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/_2sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/defaultprofile"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:shapeAppearanceOverlay="@style/Circular"
+            app:strokeColor="#FFFFFF"
+            app:strokeWidth="@dimen/_5sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tap on image to choose picture"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+        <EditText
+            android:id="@+id/firstNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/bg_edittext_icon"
+            android:drawableLeft="@drawable/user"
+            android:drawablePadding="@dimen/_15sdp"
+            android:drawableTint="@color/black"
+            android:ems="12"
+            android:hint="First Name"
+            android:inputType="text"
+            android:padding="@dimen/_8sdp" />
+
+        <EditText
+            android:id="@+id/lastNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/bg_edittext_icon"
+            android:drawableLeft="@drawable/user"
+            android:drawablePadding="@dimen/_15sdp"
+            android:drawableTint="@color/black"
+            android:ems="12"
+            android:hint="Last Name"
+            android:inputType="text"
+            android:padding="@dimen/_8sdp" />
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/bg_edittext_icon"
+            android:drawableLeft="@drawable/ic_baseline_email_24"
+            android:drawablePadding="@dimen/_15sdp"
+            android:drawableTint="@color/black"
+            android:ems="12"
+            android:hint="example@gmail.com"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/_8sdp" />
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/bg_edittext_icon"
+            android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+            android:drawablePadding="@dimen/_15sdp"
+            android:drawableTint="@color/black"
+            android:ems="12"
+            android:hint="Enter Password"
+            android:inputType="textPassword"
+            android:padding="@dimen/_8sdp" />
+
+        <EditText
+            android:id="@+id/confirmPasswordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/bg_edittext_icon"
+            android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+            android:drawablePadding="@dimen/_15sdp"
+            android:drawableTint="@color/black"
+            android:ems="12"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:padding="@dimen/_8sdp" />
+
+        <EditText
+            android:id="@+id/phoneEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/bg_edittext_icon"
+            android:drawableLeft="@drawable/ic_baseline_phone_android_24"
+            android:drawablePadding="@dimen/_15sdp"
+            android:drawableTint="@color/black"
+            android:ems="12"
+            android:hint="0300-0000-00"
+            android:inputType="phone"
+            android:padding="@dimen/_8sdp" />
+
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:backgroundTint="@color/themecolor"
+            android:padding="@dimen/_8sdp"
+            android:text="SignUp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
+            app:cornerRadius="5dp" />
+
+        <TextView
+            android:id="@+id/backToLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/highlight_background"
+            android:gravity="center"
+            android:onClick="backToLogin"
+            android:text="Back to login"
+            android:textColor="@color/themecolor"
+            android:textSize="@dimen/_13ssp" />
+
+
+    </LinearLayout>
+
 </androidx.core.widget.NestedScrollView>
