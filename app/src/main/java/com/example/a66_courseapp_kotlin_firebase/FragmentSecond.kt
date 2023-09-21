@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.ContentValues
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,11 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.a66_courseapp_kotlin_firebase.databinding.FragmentSecondBinding
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -63,14 +69,50 @@ class FragmentSecond : Fragment() {
         profileImageView = view.findViewById(R.id.profileImageView)
         profileImageView.setOnClickListener {
             //selectImage()
+
         }
         registerBtn = view.findViewById(R.id.buttonRegister)
 
         binding.buttonRegister.setOnClickListener {
 
             saveUserData();
-            // findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            // create a toast message for a successful registration
+
+            // create a snackbar message for a successful registration
+            Snackbar.make(view, "Save user data start", Snackbar.LENGTH_SHORT).show()
+
         }
+
+
+        binding.backToLogin.setOnClickListener {
+
+            progressDialog = ProgressDialog(requireContext())
+            progressDialog.setTitle("Going to Login")
+            progressDialog.setMessage("Please wait...")
+            progressDialog.show()
+
+
+
+            // GlobalScope is better than handler.postDelayed({ }, 2000)
+            // Pause the progress dialog for 2 seconds using Kotlin Coroutines
+            GlobalScope.launch(Dispatchers.Main) {
+                delay(2000) // Pause for 2 seconds
+
+                progressDialog.dismiss() // Dismiss the progress dialog after 5 seconds
+                findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            }
+
+
+
+        }
+
+
+
+
+
+        //Loading
+        // how to get context in progress dialog
+
 
 
     }
@@ -81,12 +123,17 @@ class FragmentSecond : Fragment() {
 
 
     private fun saveUserData() {
+
+
         val fName = fnameEditText.text.toString().trim()
         val lName = lnameEditText.text.toString().trim()
         val email = emailEditText.text.toString().trim()
         val password = passwordEditText.text.toString().trim()
         val phone = phoneEditText.text.toString().trim()
         val confirmPassword = confirmPasswordEditText.text.toString().trim()
+
+
+
         // Check Email format
         if (fName.isEmpty()) {
             Toast.makeText(requireContext(), "Please enter your First name", Toast.LENGTH_SHORT).show()
@@ -133,6 +180,10 @@ class FragmentSecond : Fragment() {
             passwordEditText.requestFocus()
             return
         }
+
+
+
+
 
 
 

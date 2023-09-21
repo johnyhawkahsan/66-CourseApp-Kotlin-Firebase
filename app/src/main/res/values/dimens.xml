@@ -13,4 +13,7 @@
     <dimen name="_23ssp">23sp</dimen>
     <dimen name="_80sdp">80dp</dimen>
     <dimen name="_8ssp">8sp</dimen>
+    <dimen name="_150sdp">195dp</dimen>
+    <dimen name="_70sdp">91dp</dimen>
+    <dimen name="_100sdp">130dp</dimen>
 </resources>

@@ -14,7 +14,12 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+
+        <action
+            android:id="@+id/action_FirstFragment_to_HomeActivity"
+            app:destination="@id/HomeActivity" />
     </fragment>
+
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.example.a66_courseapp_kotlin_firebase.FragmentSecond"
@@ -25,4 +30,15 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+
+
+    <activity
+        android:id="@+id/HomeActivity"
+        android:name="com.example.a66_courseapp_kotlin_firebase.HomeActivity"
+        android:label="HomeActivity"
+        tools:layout="@layout/activity_home">
+
+    </activity>
+
+
 </navigation>

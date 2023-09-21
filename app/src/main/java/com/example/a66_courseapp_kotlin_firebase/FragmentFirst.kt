@@ -1,5 +1,6 @@
 package com.example.a66_courseapp_kotlin_firebase
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -45,7 +46,11 @@ class FragmentFirst : Fragment() {
         emailEditText = view.findViewById(R.id.emailEditText)
         passwordEditText = view.findViewById(R.id.passwordEditText)
         loginTosignUp = view.findViewById(R.id.loginTosignUp)
-        val loginButton = view.findViewById<Button>(R.id.loginButton)
+        // val loginButton = view.findViewById<Button>(R.id.loginButton) // not needed when using binding
+
+        binding.loginButton.setOnClickListener {
+            navigateToProfilePage();
+        }
 
 
 
@@ -55,6 +60,18 @@ class FragmentFirst : Fragment() {
 
 
     }
+
+
+
+
+        private fun navigateToProfilePage() {
+            // Create an Intent object
+            val intent = Intent(requireContext(), HomeActivity::class.java)
+            // Start the WelcomeFragment
+            startActivity(intent)
+        }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
