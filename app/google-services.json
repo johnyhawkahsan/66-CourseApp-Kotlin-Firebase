@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "545300630547",
+    "project_id": "courseapp-kotlin-firebase",
+    "storage_bucket": "courseapp-kotlin-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545300630547:android:8dc9549792aeba5b40c3e6",
+        "android_client_info": {
+          "package_name": "com.example.a66_courseapp_kotlin_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXasyyLkqc22U1RtWF9Yb4yryxBCjaGC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,6 +2,7 @@ package com.example.a66_courseapp_kotlin_firebase
 
 import android.app.ProgressDialog
 import android.content.ContentValues
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -17,15 +18,20 @@ import androidx.navigation.fragment.findNavController
 import com.example.a66_courseapp_kotlin_firebase.databinding.FragmentSecondBinding
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * A simple [Fragment] subclass as the second destination in the navigation.
+ * SignUp fragment
  */
 class FragmentSecond : Fragment() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     private var _binding: FragmentSecondBinding? = null
 
@@ -58,6 +64,16 @@ class FragmentSecond : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+
+        //Loading
+        progressDialog = ProgressDialog(requireContext())
+        progressDialog.setTitle("Uploading")
+        progressDialog.setMessage("Please wait...")
+        progressDialog.setCancelable(false) // Prevent dismissing by tapping outside
+
 
         fnameEditText = view.findViewById(R.id.firstNameEditText)
         lnameEditText = view.findViewById(R.id.lastNameEditText)
@@ -69,14 +85,13 @@ class FragmentSecond : Fragment() {
         profileImageView = view.findViewById(R.id.profileImageView)
         profileImageView.setOnClickListener {
             //selectImage()
-
         }
+
         registerBtn = view.findViewById(R.id.buttonRegister)
 
         binding.buttonRegister.setOnClickListener {
 
             saveUserData();
-            // create a toast message for a successful registration
 
             // create a snackbar message for a successful registration
             Snackbar.make(view, "Save user data start", Snackbar.LENGTH_SHORT).show()
@@ -84,6 +99,9 @@ class FragmentSecond : Fragment() {
         }
 
 
+
+
+        // When back to login button clicked, user is redirected to Login Fragment
         binding.backToLogin.setOnClickListener {
 
             progressDialog = ProgressDialog(requireContext())
@@ -184,89 +202,53 @@ class FragmentSecond : Fragment() {
 
 
 
-
-
-
-
- /*
-
-
         // Check if email already exists in Firestore
         checkEmailExists(email)
 
-        // Create a unique filename for the image
-        val imageFileName = "${auth.currentUser?.uid}_${System.currentTimeMillis()}.jpg"
-        // Get a reference to the profile image storage location
-        val profileImageRef = storage.reference.child("profile_images/$imageFileName")
 
-
-        // Upload the selected image
-        val selectedImageUri = profileImageView.tag as Uri? // Tag holds the selected image URI
         progressDialog.show()
 
 
-        if (selectedImageUri != null) {
-            val uploadTask = profileImageRef.putFile(selectedImageUri)
-            uploadTask.addOnSuccessListener { taskSnapshot ->
-                // Image upload successful, get the download URL
-                profileImageRef.downloadUrl.addOnSuccessListener { uri ->
-                    val imageUrl = uri.toString()
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
 
-                    // Continue with user registration and profile data storage
-                    auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(requireContext()) { task ->
-                            if (task.isSuccessful) {
-                                // Registration successful
-                                progressDialog.dismiss()
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Account Created successfully",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                val userID = FirebaseAuth.getInstance().currentUser?.uid
-                                val documentReference = firestore.collection("UserProfileData")
-                                    .document(userID.toString())
-                                val user = mutableMapOf<String, Any>()
-                                user["firstname"] = fName
-                                user["lastname"] = lName
-                                user["email"] = email
-                                user["phone"] = phone
-                                user["profile_image_url"] = imageUrl // Store the image URL
-                                documentReference.set(user).addOnSuccessListener {
-                                    Log.d(ContentValues.TAG, "User profile is created for $userID")
-                                }.addOnFailureListener {
-                                    Log.d(
-                                        ContentValues.TAG,
-                                        "Failed to Created"
-                                    )
-                                }
-                                navigateToLoginPage()
-                            } else {
-                                progressDialog.dismiss()
-                                // Registration failed
-                                val errorMessage = task.exception?.message ?: "Registration failed"
-                                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-                            }
-                        }
+                    // Registration successful
+                    progressDialog.dismiss()
+                    Toast.makeText(requireContext(), "Account Created successfully", Toast.LENGTH_SHORT).show()
+
+                    // we are saving user data in Firestore - Collection name is "UserProfileData"
+                    val userID = FirebaseAuth.getInstance().currentUser?.uid
+                    val documentReference = firestore.collection("UserProfileData")
+                        .document(userID.toString())
+                    val user = mutableMapOf<String, Any>()
+                    user["firstname"] = fName
+                    user["lastname"] = lName
+                    user["email"] = email
+                    user["phone"] = phone
+                    user["admin"] = false // this is to set by default if a user is an admin
+
+                    documentReference.set(user).addOnSuccessListener {
+                        Log.d(ContentValues.TAG, "User profile data is created for $userID")
+                    }.addOnFailureListener {
+                        Log.d(
+                            ContentValues.TAG,
+                            "Failed to Save data to Firestore"
+                        )
+                    }
+
+                    navigateToLoginPage()
+
+                } else {
+                    progressDialog.dismiss()
+                    // Registration failed
+                    val errorMessage = task.exception?.message ?: "Registration failed"
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
-            uploadTask.addOnFailureListener { exception: Exception ->
-                progressDialog.dismiss()
-                // Handle image upload failure
-                Toast.makeText(requireContext(), "Failed to upload profile image", Toast.LENGTH_SHORT).show()
-
-            }
-        } else {
-            progressDialog.dismiss()
-            // Handle the case where no image was selected
-            Toast.makeText(requireContext(), "Please select a profile image", Toast.LENGTH_SHORT).show()
-
-        }
 
 
 
-
-        */
 
 
 
@@ -284,27 +266,34 @@ class FragmentSecond : Fragment() {
 
 
 
-
-    private fun checkEmailExists(email: String) {
-
-/*
-        firestore.collection("UserProfileData")
-            .whereEqualTo("email", email)
-            .get()
+    // Function to check if an email is already registered got this from ChatGPT
+    fun checkEmailExists(email: String) {
+        auth.fetchSignInMethodsForEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    if (!task.result.isEmpty) {
+                    if (!task.result.toString().isEmpty()) {
                         progressDialog.dismiss()
-                        Toast.makeText(this, "Email already exists", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireActivity(), "Success", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     progressDialog.dismiss()
                     // Error occurred while checking email existence
-                    Toast.makeText(this, "Error checking email existence", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), "Error checking email existence", Toast.LENGTH_SHORT).show()
                 }
             }
-        */
+    }
 
+
+
+
+
+
+
+
+    private fun navigateToLoginPage() {
+        val intent = Intent(requireActivity(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()  // Close the SignUp activity to prevent going back to it.
     }
 
 

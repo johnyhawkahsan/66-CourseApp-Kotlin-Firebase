@@ -14,33 +14,25 @@
         android:padding="@dimen/_15sdp"
         android:orientation="vertical">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileImageView"
-            android:layout_marginTop="@dimen/_50sdp"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center"
-            android:enabled="false"
-            android:padding="@dimen/_5sdp"
-            android:src="@drawable/defaultprofile"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:shapeAppearanceOverlay="@style/Circular"
-            app:strokeColor="#FFFFFF"
-            app:strokeWidth="@dimen/_2sdp"/>
         <TextView
             android:id="@+id/welcometoprofile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome to Profile"
+            android:text="Welcome to Courses"
             android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="@dimen/_20ssp"
             android:fontFamily="sans-serif-light"
             android:textStyle="bold"
-            android:layout_marginTop="@dimen/_20sdp"
-            />
+            android:layout_marginTop="@dimen/_20sdp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:clipToPadding="false"
+            android:background="@android:color/white" />
+
     </LinearLayout>
 </FrameLayout>

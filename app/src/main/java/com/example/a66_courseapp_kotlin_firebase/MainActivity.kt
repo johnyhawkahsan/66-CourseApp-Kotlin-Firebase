@@ -10,11 +10,19 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import com.example.a66_courseapp_kotlin_firebase.databinding.ActivityMainBinding
+import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity() {
 
+    // SHA1 key for firebase
+    // 1A:F4:C9:91:06:A0:8C:B4:A8:C8:CB:5B:15:72:3D:79:3A:E8:DF:5E
+    // method to generate -> right side click on GRADE -> Left button (Execute Gradle Task) -> Type after GRADE signingreport -> it will show you your keys at the end, just copy and paste into your Firebase console
+
+
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +37,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
 
-/*      // Not using Fab button
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-        */
+        FirebaseApp.initializeApp(this)
 
 
     }
